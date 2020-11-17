@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="org.codehaus.mojo.taglist-maven-plugin">
-  <tags>
-    <tag name="TODO Items" count="0" />
-    <tag name="FIXME Items" count="0" />
-    <tag name="Deprecation Items" count="0" />
-  </tags>
-</report>
