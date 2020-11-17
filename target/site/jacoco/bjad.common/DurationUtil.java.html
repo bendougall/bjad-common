@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DurationUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BJAD Common Library</a> &gt; <a href="index.source.html" class="el_package">bjad.common</a> &gt; <span class="el_source">DurationUtil.java</span></div><h1>DurationUtil.java</h1><pre class="source lang-java linenums">package bjad.common;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+/**
+ * Utility class used to determine duration
+ * with milliseconds or nanoseconds. 
+ *
+ * @author 
+ *   Ben Dougall
+ */
+public class DurationUtil
+{
+   /** The start time for the duration measurement */
+<span class="fc" id="L16">   protected long startTime = 0L;</span>
+   /** The end time for the duration measurement */
+<span class="fc" id="L18">   protected long endTime = -1L;</span>
+   
+   /** Flag to state if milliseconds are going to be used */
+   protected boolean useNanoSeconds;
+   
+   /**
+    * Creates the millisecond duration util, setting
+    * the start time to the current time. 
+    */
+   public DurationUtil()
+   {
+<span class="fc" id="L29">      this(false);</span>
+<span class="fc" id="L30">   }</span>
+   
+   /**
+    * Creates the duration util, setting if we are 
+    * using nanoseconds if true is passed, milliseconds
+    * if false is passed. The start time is also marked
+    * to the current time.
+    * 
+    * @param useNanoSeconds
+    *    True to measure in nano-seconds, false to measure
+    *    in milliseconds. 
+    */
+   public DurationUtil(boolean useNanoSeconds)
+<span class="fc" id="L43">   {</span>
+<span class="fc" id="L44">      this.useNanoSeconds = useNanoSeconds;</span>
+<span class="fc" id="L45">      start();</span>
+<span class="fc" id="L46">   }</span>
+   
+   /**
+    * Sets the start time for the duration marker. 
+    */
+   public void start()
+   {
+<span class="fc" id="L53">      this.startTime = getCurrentTime();</span>
+<span class="fc" id="L54">   }</span>
+   
+   /**
+    * Sets the end time for the duration marker.
+    */
+   public void stop()
+   {
+<span class="fc" id="L61">      this.endTime = getCurrentTime();</span>
+<span class="fc" id="L62">   }</span>
+   
+   /**
+    * Returns the duration in seconds.
+    * @return
+    *    The duration, as a string, in seconds rounded to 5 decimals.
+    */
+   public String getSecondsString()
+   {
+<span class="fc" id="L71">      return getSecondsString(5);</span>
+   }
+   
+   /**
+    * Returns the dureation in seconds, rounding to the 
+    * decimal places passed. 
+    * @param decimalPlaces
+    *    The number of decimal places to round to.
+    * @return
+    *    The number of seconds, as a string rounded to the decimal 
+    *    places passed.
+    */
+   public String getSecondsString(int decimalPlaces)
+   {
+<span class="fc" id="L85">      BigDecimal bd = new BigDecimal(endTime);</span>
+<span class="fc" id="L86">      bd = bd.subtract(new BigDecimal(startTime));</span>
+      
+<span class="fc bfc" id="L88" title="All 2 branches covered.">      bd = bd.divide(new BigDecimal(useNanoSeconds ? 1_000_000_000 : 1_000), decimalPlaces, RoundingMode.HALF_UP);</span>
+<span class="fc" id="L89">      return bd.toPlainString();</span>
+   }
+   
+   /** 
+    * Returns the number of milliseconds elapsed. 
+    * @return
+    *    The number of milliseconds elapsed. 
+    */
+   public long getMilliseconds()
+   {
+<span class="fc bfc" id="L99" title="All 2 branches covered.">      if (this.useNanoSeconds)</span>
+      {
+<span class="fc" id="L101">         return ((endTime - startTime) / 1_000_000);</span>
+      }
+      else
+      {
+<span class="fc" id="L105">         return endTime - startTime;</span>
+      }
+   }
+   
+   /** 
+    * Returns the number of nanoseconds elapsed. 
+    * @return
+    *    The number of nanoseconds elapsed (if 
+    *    using milliseconds, its not exact).
+    */
+   public long getNanoseconds()
+   {
+<span class="fc bfc" id="L117" title="All 2 branches covered.">      if (this.useNanoSeconds)</span>
+      {
+<span class="fc" id="L119">         return endTime - startTime;</span>
+      }
+      else
+      {
+<span class="fc" id="L123">         return (endTime - startTime) * 1_000_000;</span>
+      }
+   }
+   
+   /**
+    * Returns the current time in milliseconds or 
+    * nanoseconds depending on the flag on the object.
+    * @return
+    *    The time in milliseconds or nanoseconds.
+    */
+   private long getCurrentTime()
+   {
+<span class="fc bfc" id="L135" title="All 2 branches covered.">      return this.useNanoSeconds ? System.nanoTime() : System.currentTimeMillis();</span>
+   }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

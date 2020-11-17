@@ -1,0 +1,20 @@
+cmd.exe
+/X
+/C
+""C:\Program Files\Java\jdk1.8.0_251\jre\..\bin\javadoc.exe" @options @argfile"
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\allclasses-frame.html = 1605365309933
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\allclasses-noframe.html = 1605365309938
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\argfile = 1605365304723
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\constant-values.html = 1605365309714
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\deprecated-list.html = 1605365309922
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\help-doc.html = 1605365309975
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\index-all.html = 1605365309905
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\index.html = 1605365309946
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\options = 1605365304718
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\overview-frame.html = 1605365309569
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\overview-summary.html = 1605365309959
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\overview-tree.html = 1605365309870
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\package-list = 1605365309557
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\script.js = 1605365309988
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\serialized-form.html = 1605365309757
+C:\code\java\bjadcommon\bjad-common\target\site\apidocs\stylesheet.css = 1605365309984
