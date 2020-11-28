@@ -1,6 +1,7 @@
 package bjad.common.string;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import static org.hamcrest.MatcherAssert.assertThat; 
 import static org.hamcrest.Matchers.*;
@@ -87,5 +88,90 @@ public class SecureStringTests
       Exception inner = new Exception("Inner");
       SecureStringException ssException = new SecureStringException(inner);
       assertThat("Inner Exception set correctly", ssException.getCause(), is(inner));
+   }
+   
+   /**
+    * Tests the overridden algorithms given bad values will 
+    * cause exceptions.
+    */
+   @Test
+   public void testBadKeys()
+   {
+      try
+      {
+         SecureString ss = new SecureString();
+         ss.secretKeyFactoryAlgorithm = "BLAH".toCharArray();
+         ss.initializeCryptoObjects("", "");
+         ss.setString("HI");
+         fail("Bad secret key should have thrown exception");
+      }
+      catch (SecureStringException e)
+      {
+         
+      }
+      
+      try
+      {
+         SecureString ss = new SecureString();
+         ss.cipherAlgorithm = "BLAH".toCharArray();
+         ss.initializeCryptoObjects("", "");
+         ss.setString("HI");
+         fail("Bad cipher should have thrown exception");
+      }
+      catch (SecureStringException e)
+      {
+         
+      }
+      
+      try
+      {
+         SecureString ss = new SecureString();
+         ss.encryptionAlgorithm = "BLAH".toCharArray();
+         ss.initializeCryptoObjects("", "");
+         ss.setString("HI");
+         fail("Bad encryption should have thrown exception");
+      }
+      catch (SecureStringException e)
+      {
+         
+      }
+      
+      try
+      {
+         SecureString ss = new SecureString();
+         ss.setString("HI");
+         ss.initializeCryptoObjects("sss", "ss");
+         ss.getString();
+         
+         
+         fail("Bad encryption should have thrown exception");
+      }
+      catch (SecureStringException e)
+      {
+         
+      }
+      
+      try
+      {
+         SecureString ss = new SecureString("Key", "Salt", "Value");
+         ss.setFromBase64String("obaroZbL+7Fx2Hg6tI5cZQ==");
+         ss.getString();
+         fail("Bad encryption should have thrown exception");
+      }
+      catch (SecureStringException e)
+      {
+         
+      }
+      
+      try
+      {
+         SecureString ss = new SecureString("Key", "Salt", "Value");
+         ss.setFromBase64String("obaroZbL+7Fx2Hg6tI~*ZQ==");
+         ss.getString();
+      }
+      catch (SecureStringException e)
+      {
+         
+      }
    }
 }
