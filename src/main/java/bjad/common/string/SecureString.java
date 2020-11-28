@@ -19,19 +19,29 @@ import javax.crypto.spec.SecretKeySpec;
  *   Ben Dougall
  */
 public class SecureString
-{
+{   
+   /**
+    * The Algorithm to use for generating the secret key to
+    * encrypt the string in the object.
+    */
+   protected char[] secretKeyFactoryAlgorithm = null;
+   
+   /**
+    * The Algorithm used for the encryption base.
+    */
+   protected char[] encryptionAlgorithm = null;
+   
+   /**
+    * The Algorithm to use as the cipher for encrypting the data.
+    */
+   protected char[] cipherAlgorithm = null;
+   
    private IvParameterSpec ivspec = new IvParameterSpec(
          new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
    
    private byte[] encryptedValue;
    
    private SecretKeySpec secretKey = null;
-   
-   private char[] secretKeyFactoryAlgorithm = null;
-   
-   private char[] encryptionAlgorithm = null;
-   
-   private char[] cipherAlgorithm = null;
    
    /**
     * Creates an empty secure string with a randomized
@@ -206,7 +216,17 @@ public class SecureString
       return result;
    }
    
-   private void initializeCryptoObjects(String key, String salt)
+   /**
+    * Initializes the crypto objects for the secured string
+    * with the key and salt to use. 
+    * @param key
+    *    The encryption key to use.
+    * @param salt
+    *    The salting value to use.
+    * @throws SecureStringException
+    *    Any exceptions initializing the encryption objects will be thrown.
+    */
+   protected void initializeCryptoObjects(String key, String salt)
    {
       try
       {
